@@ -104,8 +104,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     }
 
     public void update(List<SongModel> songList){
-        songList.clear();
-        songList.addAll(songList);
+        this.songList.clear();
+        this.songList.addAll(songList);
         notifyDataSetChanged();
     }
 }
