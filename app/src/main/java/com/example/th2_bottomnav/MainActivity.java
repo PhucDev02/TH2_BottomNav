@@ -8,6 +8,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -33,8 +34,9 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
 
         floatingActionButton.setOnClickListener(view ->{
-            Toast.makeText(MainActivity.this, "Click Add", Toast.LENGTH_SHORT
-            ).show();
+            SongDetailFragment songDetailFragment = new SongDetailFragment();
+            songDetailFragment.show(getSupportFragmentManager(), "SongDetailFragment");
+            songDetailFragment.AssignList(listFragment);
         });
     }
 

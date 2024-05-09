@@ -1,0 +1,20 @@
+<!-- res/values/arrays.xml -->
+<resources>
+    <string-array name="album_array">
+        <item>Cho một tình yêu</item>
+        <item>Nỗi yêu bé dại</item>
+        <item>Cây lặng gió ngừng</item>
+        <item>Có dừng được không</item>
+        <item>Đây là mơ</item>
+        <item>Ở giữa cuộc đời</item>
+        <!-- Các mục album khác -->
+    </string-array>
+
+    <string-array name="genre_array">
+        <item>Country</item>
+        <item>Blues</item>
+        <item>Rock</item>
+        <item>Pop</item>
+        <!-- Các mục thể loại khác -->
+    </string-array>
+</resources>
