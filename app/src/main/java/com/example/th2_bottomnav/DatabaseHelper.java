@@ -173,4 +173,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return songList;
     }
+    public int getSongCountByGenre(int genreId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int songCount = 0;
+        Cursor cursor = null;
+
+        try {
+            String[] projection = { COLUMN_ID };
+            String selection = COLUMN_GENRE + " = ?";
+            String[] selectionArgs = { String.valueOf(genreId) };
+
+            cursor = db.query(TABLE_SONGS, projection, selection, selectionArgs, null, null, null);
+            songCount = cursor.getCount();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return songCount;
+    }
 }

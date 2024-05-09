@@ -84,10 +84,34 @@ public class SearchFragment extends Fragment {
     }
 
     private void updateGenreCount() {
-//        // Đếm số lượng thể loại từ cơ sở dữ liệu
-//        int genreCount = databaseHelper.getGenreCount();
-//
-//        // Hiển thị số lượng thể loại trong TextView
-//        textViewGenreCount.setText("Số lượng thể loại: " + genreCount);
+        int[] songCounts = new int[getResources().getStringArray(R.array.genre_array).length];
+        String[] genreName = getResources().getStringArray(R.array.genre_array);
+        for (int i = 1; i < getResources().getStringArray(R.array.genre_array).length; i++) {
+            int songCount = databaseHelper.getSongCountByGenre(i);
+            songCounts[i] = songCount;
+        }
+
+        // Sắp xếp mảng số lượng bài hát theo thứ tự giảm dần
+        for (int i = 1; i < songCounts.length; i++) {
+            for (int j = i + 1; j < songCounts.length; j++) {
+                if (songCounts[i] < songCounts[j]) {
+                    int temp = songCounts[i];
+                    songCounts[i] = songCounts[j];
+                    songCounts[j] = temp;
+                    String tmp = genreName[i];
+                    genreName[i]=genreName[j];
+                    genreName[j]=tmp;
+                }
+            }
+        }
+
+        // Hiển thị số lượng bài hát theo thể loại trong TextView theo thứ tự sắp xếp
+        StringBuilder countText = new StringBuilder("Thống kê số lượng bài:\n");
+        for (int i = 1; i < getResources().getStringArray(R.array.genre_array).length; i++) {
+            countText.append(genreName[i]).append(": ").append(songCounts[i]).append("\n");
+        }
+
+        // Hiển thị số lượng bài hát theo thể loại trong TextView
+        textViewGenreCount.setText(countText.toString());
     }
 }
