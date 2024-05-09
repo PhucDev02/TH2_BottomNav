@@ -91,8 +91,20 @@ public class SongDetailFragment extends DialogFragment {
         int genrePosition = spinnerGenre.getSelectedItemPosition();
         boolean isFavorite = checkBoxFavorite.isChecked();
 
-        if (songName.isEmpty() || artist.isEmpty()||albumPosition==0||genrePosition==0) {
-            Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+        if (songName.isEmpty() ) {
+            Toast.makeText(getContext(), "Chưa điền tên bài hát", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        if ( artist.isEmpty()) {
+            Toast.makeText(getContext(), "Chưa điền tên ca sĩ", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        if (albumPosition==0) {
+            Toast.makeText(getContext(), "Chưa chọn album", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        if (genrePosition==0) {
+            Toast.makeText(getContext(), "Chưa chọn thể loại", Toast.LENGTH_SHORT).show();
             return null;
         }
 
@@ -133,8 +145,20 @@ public class SongDetailFragment extends DialogFragment {
         int genrePosition = spinnerGenre.getSelectedItemPosition();
         boolean isFavorite = checkBoxFavorite.isChecked();
 
-        if (songName.isEmpty() || artist.isEmpty()||albumPosition==0||genrePosition==0) {
-            Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+        if (songName.isEmpty() ) {
+            Toast.makeText(getContext(), "Chưa điền tên bài hát", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if ( artist.isEmpty()) {
+            Toast.makeText(getContext(), "Chưa điền tên ca sĩ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (albumPosition==0) {
+            Toast.makeText(getContext(), "Chưa chọn album", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (genrePosition==0) {
+            Toast.makeText(getContext(), "Chưa chọn thể loại", Toast.LENGTH_SHORT).show();
             return;
         }
 
