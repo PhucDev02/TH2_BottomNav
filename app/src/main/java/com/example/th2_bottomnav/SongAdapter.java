@@ -10,18 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
-    private List<SongModel> songList;
+    private List<SongModel> songList = new ArrayList<>();
 
     private OnItemClickListener listener;
     public interface OnItemClickListener {
         void onItemClick(SongModel song);
     }
 
-    public SongAdapter(List<SongModel> songList,OnItemClickListener l) {
-        this.songList = songList;
+    public SongAdapter(OnItemClickListener l) {
         listener =l;
     }
 
@@ -104,8 +104,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     }
 
     public void update(List<SongModel> songList){
-        songList.clear();
-        songList.addAll(songList);
+        this.songList.clear();
+        this.songList.addAll(songList);
         notifyDataSetChanged();
     }
 }

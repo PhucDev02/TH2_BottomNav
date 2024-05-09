@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TH2_BottomNav</string>
+    <string name="app_name">TH_2TabLayout</string>
     <string name="prompt_genre">Select Genre</string>
     <string name="prompt_album">Select Album</string>
     <string name="title_home">List</string>

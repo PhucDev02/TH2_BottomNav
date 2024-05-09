@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TH2_BottomNav"
+rootProject.name = "TH2_TabLayout"
 include ':app'

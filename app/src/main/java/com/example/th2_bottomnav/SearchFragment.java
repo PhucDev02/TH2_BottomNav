@@ -39,7 +39,7 @@ public class SearchFragment extends Fragment {
         spinnerAlbumSearch.setAdapter(spinnerAdapter);
 
         searchResults = new ArrayList<>();
-        searchAdapter = new SongAdapter(searchResults,v->openSongDetailFragment(v));
+        searchAdapter = new SongAdapter(v->openSongDetailFragment(v));
 
         recyclerView.setAdapter(searchAdapter);
 

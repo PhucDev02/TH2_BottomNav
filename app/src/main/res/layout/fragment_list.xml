@@ -11,8 +11,6 @@
         android:clipToPadding="false"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:background="@android:color/white"
-        android:scrollbars="vertical"
-        android:overScrollMode="never" />
+   />
 
 </LinearLayout>
