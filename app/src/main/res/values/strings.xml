@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">TH2_BottomNav</string>
+    <string name="prompt_genre">Select Genre</string>
+    <string name="prompt_album">Select Album</string>
     <string name="title_home">List</string>
     <string name="title_dashboard">Favorite</string>
     <string name="title_notifications">Search</string>

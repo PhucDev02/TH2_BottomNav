@@ -132,4 +132,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return song;
     }
+
+    public List<SongModel> getSongsByAlbum(int albumId) {
+        List<SongModel> songList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String[] projection = {
+                    COLUMN_ID,
+                    COLUMN_NAME,
+                    COLUMN_SINGER_NAME,
+                    COLUMN_ALBUM,
+                    COLUMN_GENRE,
+                    COLUMN_IS_FAVORITE
+            };
+
+            String selection = COLUMN_ALBUM + " = ?";
+            String[] selectionArgs = { String.valueOf(albumId) };
+
+            cursor = db.query(TABLE_SONGS, projection, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    SongModel song = new SongModel();
+                    song.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)));
+                    song.setName(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)));
+                    song.setSingerName(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SINGER_NAME)));
+                    song.setAlbum(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ALBUM)));
+                    song.setGenre(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_GENRE)));
+                    song.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_FAVORITE)) == 1);
+                    songList.add(song);
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return songList;
+    }
 }

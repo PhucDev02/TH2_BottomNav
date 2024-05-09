@@ -51,13 +51,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     {
         switch (index)
         {
-            case 0:
-                return "Country";
             case 1:
-                return "Blues";
+                return "Country";
             case 2:
-                return "Rock";
+                return "Blues";
             case 3:
+                return "Rock";
+            case 4:
                 return "Pop";
         }
         return null;
@@ -66,17 +66,17 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     {
         switch (index)
         {
-            case 0:
-                return "Cho một tình yêu";
             case 1:
-                return "Nỗi yêu bé dại";
+                return "Cho một tình yêu";
             case 2:
-                return "Cây lặng - gió ngừng";
+                return "Nỗi yêu bé dại";
             case 3:
-                return "Có dừng được không";
+                return "Cây lặng - gió ngừng";
             case 4:
-                return "Đây là mơ";
+                return "Có dừng được không";
             case 5:
+                return "Đây là mơ";
+            case 6:
                 return "Ở giữa cuộc đời";
         }
         return null;
@@ -101,5 +101,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             textViewGenre = itemView.findViewById(R.id.textViewGenre);
             checkBoxFavorite = itemView.findViewById(R.id.checkBoxFavorite);
         }
+    }
+
+    public void update(List<SongModel> songList){
+        songList.clear();
+        songList.addAll(songList);
+        notifyDataSetChanged();
     }
 }

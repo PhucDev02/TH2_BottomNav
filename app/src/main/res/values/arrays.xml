@@ -1,6 +1,7 @@
 <!-- res/values/arrays.xml -->
 <resources>
     <string-array name="album_array">
+        <item>Chọn album</item>
         <item>Cho một tình yêu</item>
         <item>Nỗi yêu bé dại</item>
         <item>Cây lặng gió ngừng</item>
@@ -11,6 +12,7 @@
     </string-array>
 
     <string-array name="genre_array">
+        <item>Chọn thể loại</item>
         <item>Country</item>
         <item>Blues</item>
         <item>Rock</item>

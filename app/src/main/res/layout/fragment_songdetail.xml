@@ -39,6 +39,8 @@
         android:layout_height="wrap_content"
         android:entries="@array/album_array"
         android:hint="Chọn album"
+        android:spinnerMode="dialog"
+        android:prompt="@string/prompt_album"
         android:minHeight="48dp"
         app:layout_constraintTop_toBottomOf="@+id/editTextArtist" />
 
@@ -48,6 +50,8 @@
         android:layout_height="wrap_content"
         android:entries="@array/genre_array"
         android:hint="Chọn thể loại"
+        android:spinnerMode="dialog"
+        android:prompt="@string/prompt_genre"
         android:minHeight="48dp"
         app:layout_constraintTop_toBottomOf="@+id/spinnerAlbum" />
 

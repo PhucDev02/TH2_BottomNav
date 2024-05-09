@@ -91,7 +91,7 @@ public class SongDetailFragment extends DialogFragment {
         int genrePosition = spinnerGenre.getSelectedItemPosition();
         boolean isFavorite = checkBoxFavorite.isChecked();
 
-        if (songName.isEmpty() || artist.isEmpty()) {
+        if (songName.isEmpty() || artist.isEmpty()||albumPosition==0||genrePosition==0) {
             Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             return null;
         }
@@ -109,7 +109,8 @@ public class SongDetailFragment extends DialogFragment {
     private void deleteSong(SongModel selectedSong) {
         databaseHelper.deleteSong(selectedSong.getId());
         Toast.makeText(getContext(), "Xoá bài hát thành công", Toast.LENGTH_SHORT).show();
-        listFragment.updateSongList();
+        if(listFragment!=null)
+            listFragment.updateSongList();
         dismiss();
     }
 
@@ -132,7 +133,7 @@ public class SongDetailFragment extends DialogFragment {
         int genrePosition = spinnerGenre.getSelectedItemPosition();
         boolean isFavorite = checkBoxFavorite.isChecked();
 
-        if (songName.isEmpty() || artist.isEmpty()) {
+        if (songName.isEmpty() || artist.isEmpty()||albumPosition==0||genrePosition==0) {
             Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             return;
         }
