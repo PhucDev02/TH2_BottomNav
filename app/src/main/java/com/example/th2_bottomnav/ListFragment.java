@@ -33,7 +33,6 @@ public class ListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new SongAdapter(song -> openSongDetailFragment(song));
         recyclerView.setAdapter(adapter);
-        Log.d("lozzzz","reached");
         databaseHelper = new DatabaseHelper(getContext());
         loadSongs();
         super.onViewCreated(view, savedInstanceState);

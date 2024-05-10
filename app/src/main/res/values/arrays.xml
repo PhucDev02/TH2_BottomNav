@@ -1,22 +1,18 @@
 <!-- res/values/arrays.xml -->
 <resources>
-    <string-array name="album_array">
-        <item>Chọn album</item>
-        <item>Cho một tình yêu</item>
-        <item>Nỗi yêu bé dại</item>
-        <item>Cây lặng gió ngừng</item>
-        <item>Có dừng được không</item>
-        <item>Đây là mơ</item>
-        <item>Ở giữa cuộc đời</item>
+    <string-array name="startName">
+        <item>Chọn nơi khởi hành</item>
+        <item>Hà Nội</item>
+        <item>Đà Nẵng</item>
+        <item>tp HCM</item>
+        <item>Huế</item>
         <!-- Các mục album khác -->
     </string-array>
 
-    <string-array name="genre_array">
-        <item>Chọn thể loại</item>
-        <item>Country</item>
-        <item>Blues</item>
-        <item>Rock</item>
-        <item>Pop</item>
+    <string-array name="dichVu">
+        <item>Hút thuốc</item>
+        <item>Ăn sáng</item>
+        <item>Cà phê</item>
         <!-- Các mục thể loại khác -->
     </string-array>
 </resources>

@@ -10,7 +10,7 @@
         android:id="@+id/spinnerAlbumSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/album_array"
+        android:entries="@array/startName"
         android:minHeight="32dp"
         android:layout_marginLeft="5dp"/>
 

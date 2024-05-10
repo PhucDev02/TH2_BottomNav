@@ -1,5 +1,6 @@
 package com.example.th2_bottomnav;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,24 +15,34 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class SongDetailFragment extends DialogFragment {
-    private EditText editTextSongName, editTextArtist;
-    private Spinner spinnerAlbum, spinnerGenre;
-    private CheckBox checkBoxFavorite;
+    private EditText tenNguoiDat;
+    private Button datePick;
+    private Spinner spinnerStart;
+    private CheckBox smoke,breakfast,coffee, kyGui;
     private Button buttonCancel, buttonSave;
     private DatabaseHelper databaseHelper;
     private ListFragment listFragment;
 
+    private Calendar selectedDate = Calendar.getInstance();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_songdetail, container, false);
 
-        editTextSongName = view.findViewById(R.id.editTextSongName);
-        editTextArtist = view.findViewById(R.id.editTextArtist);
-        spinnerAlbum = view.findViewById(R.id.spinnerAlbum);
-        spinnerGenre = view.findViewById(R.id.spinnerGenre);
-        checkBoxFavorite = view.findViewById(R.id.checkBoxFavorite);
+        tenNguoiDat = view.findViewById(R.id.nameTicket);
+        datePick=view.findViewById(R.id.datePicker);
+        spinnerStart = view.findViewById(R.id.spinnerAlbum);
+
+        smoke=view.findViewById(R.id.radioSmoke);
+        breakfast=view.findViewById(R.id.radioBreakfast);
+        coffee=view.findViewById(R.id.radioCoffee);
+
+        kyGui = view.findViewById(R.id.checkBoxFavorite);
         buttonCancel = view.findViewById(R.id.buttonCancel);
         buttonSave = view.findViewById(R.id.buttonSave);
         databaseHelper = new DatabaseHelper(getContext());
@@ -40,6 +51,7 @@ public class SongDetailFragment extends DialogFragment {
 
         buttonSave.setOnClickListener(v -> saveSong());
 
+        datePick.setOnClickListener(v -> showDatePickerDialog());
         Bundle bundle = getArguments();
         if (bundle != null) {
             int songId = bundle.getInt("songId");
@@ -47,11 +59,9 @@ public class SongDetailFragment extends DialogFragment {
             SongModel selectedSong = databaseHelper.getSong(songId);
             if (selectedSong != null) {
                 // Hiển thị thông tin của bài hát được chọn trong các thành phần UI
-                editTextSongName.setText(selectedSong.getName());
-                editTextArtist.setText(selectedSong.getSingerName());
-                spinnerAlbum.setSelection(selectedSong.getAlbum());
-                spinnerGenre.setSelection(selectedSong.getGenre());
-                checkBoxFavorite.setChecked(selectedSong.isFavorite());
+                tenNguoiDat.setText(selectedSong.getName());
+                spinnerStart.setSelection(selectedSong.getNoiKhoiHanh());
+                kyGui.setChecked(selectedSong.isKyGui());
                 buttonCancel.setOnClickListener(v->deleteSong(selectedSong));
                 buttonSave.setOnClickListener(v->updateSong(selectedSong));
                 buttonCancel.setText("Xoá");
@@ -71,6 +81,28 @@ public class SongDetailFragment extends DialogFragment {
         return view;
     }
 
+    private void showDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getContext(),
+                (view, year, month, dayOfMonth) -> {
+                    // Lưu ngày được chọn vào biến selectedDate
+                    selectedDate.set(year, month, dayOfMonth);
+                    // Cập nhật văn bản của nút datepicker với ngày được chọn
+                    datePick.setText(formatDate(selectedDate));
+                },
+                selectedDate.get(Calendar.YEAR), // Năm hiện tại
+                selectedDate.get(Calendar.MONTH), // Tháng hiện tại
+                selectedDate.get(Calendar.DAY_OF_MONTH) // Ngày hiện tại
+        );
+
+        // Hiển thị DatePickerDialog
+        datePickerDialog.show();
+    }
+    private String formatDate(Calendar calendar) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        return sdf.format(calendar.getTime());
+    }
+
     private void updateSong(SongModel selectedSong) {
         SongModel   newSong = AssignNewSong(selectedSong);
         if (newSong==null)
@@ -85,36 +117,24 @@ public class SongDetailFragment extends DialogFragment {
     }
 
     private SongModel AssignNewSong(SongModel model) {
-        String songName = editTextSongName.getText().toString().trim();
-        String artist = editTextArtist.getText().toString().trim();
-        int albumPosition = spinnerAlbum.getSelectedItemPosition();
-        int genrePosition = spinnerGenre.getSelectedItemPosition();
-        boolean isFavorite = checkBoxFavorite.isChecked();
+        String songName = tenNguoiDat.getText().toString().trim();
+        int albumPosition = spinnerStart.getSelectedItemPosition();
+        boolean isFavorite = kyGui.isChecked();
 
         if (songName.isEmpty() ) {
             Toast.makeText(getContext(), "Chưa điền tên bài hát", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        if ( artist.isEmpty()) {
-            Toast.makeText(getContext(), "Chưa điền tên ca sĩ", Toast.LENGTH_SHORT).show();
             return null;
         }
         if (albumPosition==0) {
             Toast.makeText(getContext(), "Chưa chọn album", Toast.LENGTH_SHORT).show();
             return null;
         }
-        if (genrePosition==0) {
-            Toast.makeText(getContext(), "Chưa chọn thể loại", Toast.LENGTH_SHORT).show();
-            return null;
-        }
 
         SongModel newSong = new SongModel();
         newSong.setId(model.getId()); // Giữ nguyên ID của bài hát
         newSong.setName(songName);
-        newSong.setSingerName(artist);
-        newSong.setAlbum(albumPosition);
-        newSong.setGenre(genrePosition);
-        newSong.setFavorite(isFavorite);
+        newSong.setNoiKhoiHanh(albumPosition);
+        newSong.setKyGui(isFavorite);
         return newSong;
     }
 
@@ -128,46 +148,41 @@ public class SongDetailFragment extends DialogFragment {
 
     public void SetSong(SongModel song)
     {
-        editTextSongName.setText(song.getName());
-        editTextArtist.setText(song.getSingerName());
-        spinnerAlbum.setSelection(song.getAlbum());
-        spinnerGenre.setSelection(song.getGenre());
-        checkBoxFavorite.setChecked(song.isFavorite());
+        tenNguoiDat.setText(song.getName());
+        spinnerStart.setSelection(song.getNoiKhoiHanh());
+        kyGui.setChecked(song.isKyGui());
     }
     public void AssignList(ListFragment frm)
     {
         listFragment=frm;
     }
     private void saveSong() {
-        String songName = editTextSongName.getText().toString().trim();
-        String artist = editTextArtist.getText().toString().trim();
-        int albumPosition = spinnerAlbum.getSelectedItemPosition();
-        int genrePosition = spinnerGenre.getSelectedItemPosition();
-        boolean isFavorite = checkBoxFavorite.isChecked();
+        String username = tenNguoiDat.getText().toString().trim();
+        String date= datePick.getText().toString();
+        int noiKhoiHanh = spinnerStart.getSelectedItemPosition();
+        boolean isFavorite = kyGui.isChecked();
 
-        if (songName.isEmpty() ) {
-            Toast.makeText(getContext(), "Chưa điền tên bài hát", Toast.LENGTH_SHORT).show();
+        if (username.isEmpty() ) {
+            Toast.makeText(getContext(), "Chưa điền tên người đặt", Toast.LENGTH_SHORT).show();
             return;
         }
-        if ( artist.isEmpty()) {
-            Toast.makeText(getContext(), "Chưa điền tên ca sĩ", Toast.LENGTH_SHORT).show();
+        if (date=="Chọn ngày") {
+            Toast.makeText(getContext(), "Chưa chọn ngày", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (albumPosition==0) {
-            Toast.makeText(getContext(), "Chưa chọn album", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (genrePosition==0) {
-            Toast.makeText(getContext(), "Chưa chọn thể loại", Toast.LENGTH_SHORT).show();
+        if (noiKhoiHanh==0) {
+            Toast.makeText(getContext(), "Chưa chọn nơi khởi hành", Toast.LENGTH_SHORT).show();
             return;
         }
 
         SongModel song = new SongModel();
-        song.setName(songName);
-        song.setSingerName(artist);
-        song.setAlbum(albumPosition); // Sử dụng vị trí của album trong spinner
-        song.setGenre(genrePosition); // Sử dụng vị trí của thể loại trong spinner
-        song.setFavorite(isFavorite);
+        song.setName(username);
+        song.setDateStart(date);
+        song.setNoiKhoiHanh(noiKhoiHanh);
+        song.setBreakfast(breakfast.isChecked());
+        song.setSmoke(smoke.isChecked());
+        song.setBreakfast(coffee.isChecked());
+        song.setKyGui(isFavorite);
 
         long result;
         if (song.getId() == 0) {
@@ -177,11 +192,11 @@ public class SongDetailFragment extends DialogFragment {
         }
 
         if (result > 0) {
-            Toast.makeText(getContext(), "Lưu bài hát thành công", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Lưu vé thành công", Toast.LENGTH_SHORT).show();
             listFragment.updateSongList();
             dismiss();
         } else {
-            Toast.makeText(getContext(), "Lưu bài hát thất bại", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Lưu vé thất bại", Toast.LENGTH_SHORT).show();
         }
     }
 

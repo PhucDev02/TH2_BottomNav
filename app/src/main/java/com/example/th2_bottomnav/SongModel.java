@@ -3,29 +3,22 @@ package com.example.th2_bottomnav;
 public class SongModel {
     private int id;
     private String name;
-    private String singerName;
-    private int album;
-    private int genre;
-    private boolean isFavorite;
+    private String dateStart;
+    private int noiKhoiHanh;
+    private boolean smoke,breakfast,coffee;
+    private boolean kyGui;
+
+    public SongModel(String name, String dateStart, int noiKhoiHanh, boolean smoke, boolean breakfast, boolean coffee, boolean kyGui) {
+        this.name = name;
+        this.dateStart = dateStart;
+        this.noiKhoiHanh = noiKhoiHanh;
+        this.smoke = smoke;
+        this.breakfast = breakfast;
+        this.coffee = coffee;
+        this.kyGui = kyGui;
+    }
 
     public SongModel() {
-    }
-
-    public SongModel(String name, String singerName, int album, int genre, boolean isFavorite) {
-        this.name = name;
-        this.singerName = singerName;
-        this.album = album;
-        this.genre = genre;
-        this.isFavorite = isFavorite;
-    }
-
-    public SongModel(int id, String name, String singerName, int album, int genre, boolean isFavorite) {
-        this.id = id;
-        this.name = name;
-        this.singerName = singerName;
-        this.album = album;
-        this.genre = genre;
-        this.isFavorite = isFavorite;
     }
 
     public int getId() {
@@ -44,35 +37,51 @@ public class SongModel {
         this.name = name;
     }
 
-    public String getSingerName() {
-        return singerName;
+    public String getDateStart() {
+        return dateStart;
     }
 
-    public void setSingerName(String singerName) {
-        this.singerName = singerName;
+    public void setDateStart(String dateStart) {
+        this.dateStart = dateStart;
     }
 
-    public int getAlbum() {
-        return album;
+    public int getNoiKhoiHanh() {
+        return noiKhoiHanh;
     }
 
-    public void setAlbum(int album) {
-        this.album = album;
+    public void setNoiKhoiHanh(int noiKhoiHanh) {
+        this.noiKhoiHanh = noiKhoiHanh;
     }
 
-    public int getGenre() {
-        return genre;
+    public boolean isSmoke() {
+        return smoke;
     }
 
-    public void setGenre(int genre) {
-        this.genre = genre;
+    public void setSmoke(boolean smoke) {
+        this.smoke = smoke;
     }
 
-    public boolean isFavorite() {
-        return isFavorite;
+    public boolean isBreakfast() {
+        return breakfast;
     }
 
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
+    public void setBreakfast(boolean breakfast) {
+        this.breakfast = breakfast;
+    }
+
+    public boolean isCoffee() {
+        return coffee;
+    }
+
+    public void setCoffee(boolean coffee) {
+        this.coffee = coffee;
+    }
+
+    public boolean isKyGui() {
+        return kyGui;
+    }
+
+    public void setKyGui(boolean kyGui) {
+        this.kyGui = kyGui;
     }
 }

@@ -3,7 +3,6 @@ package com.example.th2_bottomnav;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -36,10 +35,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SongModel song = songList.get(position);
         holder.textViewSongName.setText(song.getName());
-        holder.textViewSingerName.setText(song.getSingerName());
-        holder.textViewAlbum.setText("Album: " + GetAlbum(song.getAlbum()));
-        holder.textViewGenre.setText("Thể loại: " + GetGenre(song.getGenre()));
-        holder.checkBoxFavorite.setChecked(song.isFavorite());
+        holder.textViewSingerName.setText(song.getDateStart());
+        holder.textViewAlbum.setText("Album: " + GetAlbum(song.getNoiKhoiHanh()));
+        holder.textViewGenre.setText("Thể loại: " + GetGenre(song));
+        holder.checkBoxFavorite.setChecked(song.isKyGui());
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
@@ -47,37 +46,27 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             }
         });
     }
-    private String GetGenre(int index)
+    private String GetGenre(SongModel song)
     {
-        switch (index)
-        {
-            case 1:
-                return "Country";
-            case 2:
-                return "Blues";
-            case 3:
-                return "Rock";
-            case 4:
-                return "Pop";
-        }
-        return null;
+        String res="";
+        res = res + (song.isSmoke()?"Hút thuốc":"");
+        res = res + (song.isBreakfast()?"Ăn sáng":"");
+        res = res + (song.isCoffee()?"Cà phê":"");
+        if(res=="") res="Không";
+        return res;
     }
     private String GetAlbum(int index)
     {
         switch (index)
         {
             case 1:
-                return "Cho một tình yêu";
+                return "Hà Nội";
             case 2:
-                return "Nỗi yêu bé dại";
+                return "Đà Nẵng";
             case 3:
-                return "Cây lặng - gió ngừng";
+                return "Tp HCM";
             case 4:
-                return "Có dừng được không";
-            case 5:
-                return "Đây là mơ";
-            case 6:
-                return "Ở giữa cuộc đời";
+                return "Huế";
         }
         return null;
     }

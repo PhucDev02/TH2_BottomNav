@@ -34,7 +34,7 @@ public class SearchFragment extends Fragment {
         databaseHelper = new DatabaseHelper(getContext());
 
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.album_array, android.R.layout.simple_spinner_item);
+                R.array.startName, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAlbumSearch.setAdapter(spinnerAdapter);
 
@@ -84,9 +84,9 @@ public class SearchFragment extends Fragment {
     }
 
     private void updateGenreCount() {
-        int[] songCounts = new int[getResources().getStringArray(R.array.genre_array).length];
-        String[] genreName = getResources().getStringArray(R.array.genre_array);
-        for (int i = 1; i < getResources().getStringArray(R.array.genre_array).length; i++) {
+        int[] songCounts = new int[getResources().getStringArray(R.array.dichVu).length];
+        String[] genreName = getResources().getStringArray(R.array.dichVu);
+        for (int i = 1; i < getResources().getStringArray(R.array.dichVu).length; i++) {
             int songCount = databaseHelper.getSongCountByGenre(i);
             songCounts[i] = songCount;
         }
@@ -107,7 +107,7 @@ public class SearchFragment extends Fragment {
 
         // Hiển thị số lượng bài hát theo thể loại trong TextView theo thứ tự sắp xếp
         StringBuilder countText = new StringBuilder("Thống kê số lượng bài:\n");
-        for (int i = 1; i < getResources().getStringArray(R.array.genre_array).length; i++) {
+        for (int i = 1; i < getResources().getStringArray(R.array.dichVu).length; i++) {
             countText.append(genreName[i]).append(": ").append(songCounts[i]).append("\n");
         }
 
