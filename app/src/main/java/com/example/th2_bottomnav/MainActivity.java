@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity{
         floatingActionButton.setOnClickListener(view ->{
             SongDetailFragment songDetailFragment = new SongDetailFragment();
             songDetailFragment.show(getSupportFragmentManager(), "SongDetailFragment");
-            songDetailFragment.AssignList(listFragment);
+            songDetailFragment.AssignList(ListFragment.instance);
         });
     }
 

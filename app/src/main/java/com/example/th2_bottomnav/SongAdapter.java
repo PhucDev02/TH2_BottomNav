@@ -36,8 +36,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         SongModel song = songList.get(position);
         holder.textViewSongName.setText(song.getName());
         holder.textViewSingerName.setText(song.getDateStart());
-        holder.textViewAlbum.setText("Album: " + GetAlbum(song.getNoiKhoiHanh()));
-        holder.textViewGenre.setText("Thể loại: " + GetGenre(song));
+        holder.textViewAlbum.setText("Nơi khởi hành: " + GetAlbum(song.getNoiKhoiHanh()));
+        holder.textViewGenre.setText("Dịch vụ: " + GetGenre(song));
         holder.checkBoxFavorite.setChecked(song.isKyGui());
 
         holder.itemView.setOnClickListener(v -> {
@@ -50,8 +50,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     {
         String res="";
         res = res + (song.isSmoke()?"Hút thuốc":"");
-        res = res + (song.isBreakfast()?"Ăn sáng":"");
-        res = res + (song.isCoffee()?"Cà phê":"");
+        res = res + (song.isBreakfast()?" Ăn sáng":"");
+        res = res + (song.isCoffee()?" Cà phê":"");
         if(res=="") res="Không";
         return res;
     }

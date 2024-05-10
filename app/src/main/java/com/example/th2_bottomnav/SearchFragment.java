@@ -74,12 +74,12 @@ public class SearchFragment extends Fragment {
     // Phương thức để cập nhật kết quả tìm kiếm dựa trên album đã chọn
     private void updateSearchResults(int albumId) {
         // Lấy danh sách bài hát từ cơ sở dữ liệu dựa trên albumId
-        List<SongModel> songs = databaseHelper.getSongsByAlbum(albumId);
-        Log.e(null,songs.size()+"");
-        searchResults.clear();
-
-        searchResults.addAll(songs);
-        searchAdapter.update(songs);
+//        List<SongModel> songs = databaseHelper.getSongsByAlbum(albumId);
+//        Log.e(null,songs.size()+"");
+//        searchResults.clear();
+//
+//        searchResults.addAll(songs);
+//        searchAdapter.update(songs);
 
     }
 

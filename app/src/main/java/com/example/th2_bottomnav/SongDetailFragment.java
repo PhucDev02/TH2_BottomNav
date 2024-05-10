@@ -61,6 +61,10 @@ public class SongDetailFragment extends DialogFragment {
                 // Hiển thị thông tin của bài hát được chọn trong các thành phần UI
                 tenNguoiDat.setText(selectedSong.getName());
                 spinnerStart.setSelection(selectedSong.getNoiKhoiHanh());
+                datePick.setText(selectedSong.getDateStart());
+                smoke.setChecked(selectedSong.isSmoke());
+                breakfast.setChecked(selectedSong.isBreakfast());
+                coffee.setChecked(selectedSong.isCoffee());
                 kyGui.setChecked(selectedSong.isKyGui());
                 buttonCancel.setOnClickListener(v->deleteSong(selectedSong));
                 buttonSave.setOnClickListener(v->updateSong(selectedSong));
@@ -112,7 +116,7 @@ public class SongDetailFragment extends DialogFragment {
         databaseHelper.updateSong(newSong);
 
         Toast.makeText(getContext(), "Cập nhật bài hát thành công", Toast.LENGTH_SHORT).show();
-        listFragment.updateSongList();
+        listFragment.loadSongs();
         dismiss();
     }
 
@@ -120,21 +124,25 @@ public class SongDetailFragment extends DialogFragment {
         String songName = tenNguoiDat.getText().toString().trim();
         int albumPosition = spinnerStart.getSelectedItemPosition();
         boolean isFavorite = kyGui.isChecked();
-
+        String date= datePick.getText().toString();
         if (songName.isEmpty() ) {
-            Toast.makeText(getContext(), "Chưa điền tên bài hát", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Chưa điền tên người đặt", Toast.LENGTH_SHORT).show();
             return null;
         }
         if (albumPosition==0) {
-            Toast.makeText(getContext(), "Chưa chọn album", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Chưa chọn nơi khởi hành", Toast.LENGTH_SHORT).show();
             return null;
         }
 
         SongModel newSong = new SongModel();
         newSong.setId(model.getId()); // Giữ nguyên ID của bài hát
         newSong.setName(songName);
+        newSong.setDateStart(date);
         newSong.setNoiKhoiHanh(albumPosition);
         newSong.setKyGui(isFavorite);
+        newSong.setSmoke(smoke.isChecked());
+        newSong.setBreakfast(breakfast.isChecked());
+        newSong.setCoffee(coffee.isChecked());
         return newSong;
     }
 
@@ -142,7 +150,7 @@ public class SongDetailFragment extends DialogFragment {
         databaseHelper.deleteSong(selectedSong.getId());
         Toast.makeText(getContext(), "Xoá bài hát thành công", Toast.LENGTH_SHORT).show();
         if(listFragment!=null)
-            listFragment.updateSongList();
+            listFragment.loadSongs();
         dismiss();
     }
 
@@ -181,7 +189,7 @@ public class SongDetailFragment extends DialogFragment {
         song.setNoiKhoiHanh(noiKhoiHanh);
         song.setBreakfast(breakfast.isChecked());
         song.setSmoke(smoke.isChecked());
-        song.setBreakfast(coffee.isChecked());
+        song.setCoffee(coffee.isChecked());
         song.setKyGui(isFavorite);
 
         long result;
@@ -193,7 +201,7 @@ public class SongDetailFragment extends DialogFragment {
 
         if (result > 0) {
             Toast.makeText(getContext(), "Lưu vé thành công", Toast.LENGTH_SHORT).show();
-            listFragment.updateSongList();
+            listFragment.loadSongs();
             dismiss();
         } else {
             Toast.makeText(getContext(), "Lưu vé thất bại", Toast.LENGTH_SHORT).show();

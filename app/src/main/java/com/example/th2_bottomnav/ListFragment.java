@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListFragment extends Fragment {
+    public static ListFragment instance;
     private RecyclerView recyclerView;
     private SongAdapter adapter;
     private DatabaseHelper databaseHelper;
@@ -23,6 +24,7 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        instance=this;
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         return view;
     }
@@ -48,16 +50,12 @@ public class ListFragment extends Fragment {
         songDetailFragment.show(getChildFragmentManager(), "SongDetailDialog");
         songDetailFragment.AssignList(this);
     }
-    private void loadSongs() {
+    public void loadSongs() {
+        adapter.update(databaseHelper.getAllSongs());
         try{
-            adapter.update(databaseHelper.getAllSongs());
         }
         catch ( Exception e){
             e.printStackTrace();
         }
-
-    }
-    public void updateSongList() {
-        loadSongs();
     }
 }

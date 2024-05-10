@@ -157,6 +157,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_START_DATE,
                     COLUMN_START_PLACE,
                     COLUMN_IS_SMOKE,
+                    COLUMN_IS_BREAKFAST,
+                    COLUMN_IS_COFFEE,
                     COLUMN_IS_FAVORITE
             };
 
